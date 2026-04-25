@@ -61,7 +61,14 @@ def basic_clean(df):
     return result
 
 def add_kpi_columns(df):
-    # KPI-1: positive gap = dine-in rated better than delivery in that city
+    # KPI-1: rating_gap = dining_rating - delivery_rating per restaurant
+    # Positive gap means dine-in is rated better than delivery in that city
     result = df.copy()
     result["rating_gap"] = result["dining_rating"] - result["delivery_rating"]
+
+    # KPI-2: avg_item_votes = average votes per cuisine, computed at item level
+    # Identifies which cuisines have highest customer engagement
+    cuisine_avg = result.groupby("cuisine")["votes"].transform("mean")
+    result["avg_item_votes"] = cuisine_avg
+
     return result
