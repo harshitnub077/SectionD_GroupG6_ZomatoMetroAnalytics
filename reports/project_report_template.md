@@ -6,6 +6,7 @@
 **Members:**  
 - Piyush Raj (Lead Data Analyst)  
 - Shiva (Full Stack Developer)  
+- Harshit (Data Engineer)  
 
 ---
 
@@ -181,3 +182,4 @@
 |--------|------|--------------|
 | Piyush Raj | Lead Data Analyst | ETL Pipeline design, imputation logic, statistical analysis, and report writing. |
 | Shiva | Full Stack Developer | Portfolio development, UI/UX design, and project documentation management. |
+| Harshit | Data Engineer | Git version control, conflict resolution, and deployment orchestration. |

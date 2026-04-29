@@ -13,8 +13,15 @@
 - **Contributions:** 
     - Designed the interactive project portfolio.
     - Implemented the responsive web interface for the analytics dashboard.
-    - Managed the deployment and hosting of the project results.
-- **Skills:** HTML, CSS, JavaScript, React, Deployment (Vercel/Netlify).
+- **Skills:** HTML, CSS, JavaScript, React.
+
+## Harshit
+**Role:** Data Engineer & DevOps
+- **Contributions:** 
+    - Managed Git version control and resolved codebase conflicts.
+    - Orchestrated the project deployment pipeline.
+    - Integrated multi-member portfolio components.
+- **Skills:** Git, Docker, Python, Web Deployment.
 
 ---
 *Generated for the Data Visualisation and Analytics project portfolio.*
