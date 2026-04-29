@@ -183,3 +183,4 @@
 | Piyush Raj | Lead Data Analyst | ETL Pipeline design, imputation logic, statistical analysis, and report writing. |
 | Shiva | Full Stack Developer | Portfolio development, UI/UX design, and project documentation management. |
 | Harshit | Data Engineer | Git version control, conflict resolution, and deployment orchestration. |
+| Pratyush Parida | Visualization Specialist | Tableau dashboard design, dataset finding & cleaning, and report writing. |
