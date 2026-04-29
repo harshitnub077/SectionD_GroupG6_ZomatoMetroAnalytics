@@ -1,7 +1,11 @@
 # Zomato Metro Analytics — Project Report
 
 ## 1. Cover Page
-*To be filled by team*
+**Section:** D  
+**Group:** G6  
+**Members:**  
+- Piyush Raj (Lead Data Analyst)  
+- Shiva (Full Stack Developer)  
 
 ---
 
@@ -173,4 +177,7 @@
 
 ## 14. Contribution Matrix
 
-*To be filled — match with GitHub commit history*
+| Member | Role | Contribution |
+|--------|------|--------------|
+| Piyush Raj | Lead Data Analyst | ETL Pipeline design, imputation logic, statistical analysis, and report writing. |
+| Shiva | Full Stack Developer | Portfolio development, UI/UX design, and project documentation management. |

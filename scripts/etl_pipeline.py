@@ -72,3 +72,35 @@ def add_kpi_columns(df):
     result["avg_item_votes"] = cuisine_avg
 
     return result
+
+def main():
+    parser = argparse.ArgumentParser(description="Zomato Metro Analytics ETL Pipeline")
+    parser.add_argument("--input", default="data/zomato_dataset 2.csv", help="Path to raw CSV")
+    parser.add_argument("--output", default="data/processed/zomato_cleaned.csv", help="Path to save cleaned CSV")
+    args = parser.parse_args()
+
+    input_path = Path(args.input)
+    output_path = Path(args.output)
+
+    if not input_path.exists():
+        print(f"Error: Input file {input_path} not found.")
+        return
+
+    print(f"Loading data from {input_path}...")
+    df = pd.read_csv(input_path)
+    print(f"Initial shape: {df.shape}")
+
+    print("Running cleaning pipeline...")
+    df_cleaned = basic_clean(df)
+    
+    print("Adding KPI columns...")
+    df_final = add_kpi_columns(df_cleaned)
+
+    print(f"Final shape: {df_final.shape}")
+    
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    df_final.to_csv(output_path, index=False)
+    print(f"Successfully saved cleaned data to {output_path}")
+
+if __name__ == "__main__":
+    main()
