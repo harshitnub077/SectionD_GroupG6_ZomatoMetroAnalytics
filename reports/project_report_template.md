@@ -7,6 +7,7 @@
 - Piyush Raj (Lead Data Analyst)  
 - Shiva (Full Stack Developer)  
 - Harshit (Data Engineer)  
+- Pratyush Parida (Visualization Specialist)  
 
 ---
 
