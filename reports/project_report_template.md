@@ -8,6 +8,7 @@
 - Shiva (Full Stack Developer)  
 - Harshit (Data Engineer)  
 - Pratyush Parida (Visualization Specialist)  
+- Manikanta Siraparapu (Data Analyst & Visualization Specialist)  
 
 ---
 
@@ -185,3 +186,4 @@
 | Shiva | Full Stack Developer | Portfolio development, UI/UX design, and project documentation management. |
 | Harshit | Data Engineer | Git version control, conflict resolution, and deployment orchestration. |
 | Pratyush Parida | Visualization Specialist | Tableau dashboard design, dataset finding & cleaning, and report writing. |
+| Manikanta Siraparapu | Data Analyst & Visualization Specialist | Developed interactive Tableau dashboards, analyzed restaurant data across 13 metro cities, and contributed to data preparation. |
