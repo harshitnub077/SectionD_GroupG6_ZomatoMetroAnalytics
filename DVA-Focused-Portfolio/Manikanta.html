@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manikanta Siraparapu — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ink:   #0D0D0D;
+  --paper: #F5F0E8;
+  --cream: #EDE7D9;
+  --red:   #C0392B;
+  --red2:  #E74C3C;
+  --navy:  #1A1A2E;
+  --gold:  #D4A853;
+  --smoke: #7A7A7A;
+  --white: #FFFFFF;
+}
+html { scroll-behavior: smooth; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 400;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* CURSOR */
+.cursor {
+  width: 12px; height: 12px;
+  background: var(--red); border-radius: 50%;
+  position: fixed; top: 0; left: 0;
+  pointer-events: none; z-index: 9999;
+  transform: translate(-50%,-50%);
+}
+.cursor-ring {
+  width: 36px; height: 36px;
+  border: 1.5px solid var(--red); border-radius: 50%;
+  position: fixed; top: 0; left: 0;
+  pointer-events: none; z-index: 9998;
+  transform: translate(-50%,-50%); opacity: 0.6;
+  transition: width 0.2s, height 0.2s, border-color 0.2s;
+}
+body:has(a:hover) .cursor-ring,
+body:has(button:hover) .cursor-ring { width: 56px; height: 56px; border-color: var(--gold); }
+
+/* NOISE */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9997; opacity: 0.5;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 60px;
+  background: rgba(245,240,232,0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px; letter-spacing: 3px;
+  color: var(--ink); text-decoration: none;
+}
+.nav-logo span { color: var(--red); }
+.nav-links { display: flex; gap: 36px; list-style: none; }
+.nav-links a {
+  font-size: 12px; font-weight: 500; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--smoke);
+  text-decoration: none; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--red); }
+.nav-badge { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--smoke); letter-spacing: 1px; }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 0 60px 80px; position: relative; overflow: hidden;
+}
+.hero-bg-text {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(120px,18vw,280px);
+  color: transparent; -webkit-text-stroke: 1px rgba(0,0,0,0.055);
+  white-space: nowrap; pointer-events: none; user-select: none;
+  letter-spacing: -4px;
+  animation: drift 20s ease-in-out infinite alternate;
+}
+@keyframes drift { from{transform:translate(-50%,-50%) translateX(-20px)} to{transform:translate(-50%,-50%) translateX(20px)} }
+.hero-tag {
+  font-family: 'DM Mono', monospace; font-size: 11px;
+  letter-spacing: 3px; text-transform: uppercase; color: var(--red);
+  margin-bottom: 24px; opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
+}
+.hero-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(64px,9vw,130px); line-height: 0.9;
+  letter-spacing: -1px; color: var(--ink);
+  opacity: 0; animation: fadeUp 0.9s 0.4s forwards;
+}
+.hero-name .line2 { color: var(--red); display: block; }
+.hero-desc {
+  margin-top: 32px; max-width: 560px; font-size: 16px;
+  line-height: 1.75; color: var(--smoke); font-weight: 300;
+  opacity: 0; animation: fadeUp 0.9s 0.7s forwards;
+}
+.hero-cta-row {
+  display: flex; gap: 20px; align-items: center;
+  margin-top: 48px; opacity: 0; animation: fadeUp 0.9s 1s forwards;
+}
+.btn-primary {
+  background: var(--red); color: white;
+  padding: 14px 36px; font-size: 12px; font-weight: 600;
+  letter-spacing: 2px; text-transform: uppercase;
+  text-decoration: none; border: none; cursor: none;
+  transition: background 0.2s, transform 0.2s;
+}
+.btn-primary:hover { background: var(--red2); transform: translateY(-2px); }
+.btn-outline {
+  border: 1.5px solid var(--ink); color: var(--ink);
+  padding: 13px 36px; font-size: 12px; font-weight: 600;
+  letter-spacing: 2px; text-transform: uppercase; text-decoration: none;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+.btn-outline:hover { background: var(--ink); color: var(--paper); transform: translateY(-2px); }
+.scroll-hint {
+  position: absolute; right: 60px; bottom: 80px;
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+  opacity: 0; animation: fadeUp 1s 1.4s forwards;
+}
+.scroll-hint span {
+  font-family: 'DM Mono', monospace; font-size: 9px;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--smoke); writing-mode: vertical-rl;
+}
+.scroll-line {
+  width: 1px; height: 60px;
+  background: linear-gradient(to bottom, var(--red), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse { 0%,100%{opacity:1;transform:scaleY(1)} 50%{opacity:.4;transform:scaleY(.6)} }
+
+/* STATS STRIP */
+.stats-strip {
+  background: var(--navy); padding: 40px 60px;
+  display: grid; grid-template-columns: repeat(4,1fr);
+}
+.stat-item {
+  padding: 0 40px; border-right: 1px solid rgba(255,255,255,0.08);
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.6s, transform 0.6s;
+}
+.stat-item:first-child { padding-left: 0; }
+.stat-item:last-child { border-right: none; }
+.stat-item.visible { opacity: 1; transform: translateY(0); }
+.stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 52px; color: var(--gold); line-height: 1; }
+.stat-label { font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-top: 8px; }
+
+/* SECTION COMMON */
+section { padding: 100px 60px; }
+.section-header { display: flex; align-items: baseline; gap: 24px; margin-bottom: 64px; }
+.section-num { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--red); letter-spacing: 2px; }
+.section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px,5vw,64px); letter-spacing: -0.5px; color: var(--ink); line-height: 1; }
+.section-line { flex: 1; height: 1px; background: linear-gradient(to right,rgba(0,0,0,0.15),transparent); }
+
+/* ABOUT */
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+.about-text p { font-size: 16px; line-height: 1.85; color: var(--smoke); font-weight: 300; margin-bottom: 24px; }
+.about-text p strong { color: var(--ink); font-weight: 600; }
+.about-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
+.tag {
+  font-family: 'DM Mono', monospace; font-size: 10px;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 7px 16px; border: 1px solid rgba(0,0,0,0.15); color: var(--smoke);
+  transition: all 0.2s;
+}
+.tag:hover { border-color: var(--red); color: var(--red); }
+.quick-facts {
+  background: var(--navy); padding: 40px;
+}
+.qf-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; }
+.qf-row { border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 18px; margin-bottom: 18px; }
+.qf-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.qf-key { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.35); font-family: 'DM Mono', monospace; }
+.qf-val { font-size: 15px; color: white; margin-top: 5px; font-weight: 500; }
+.qf-val.gold { color: var(--gold); font-size: 14px; }
+
+/* EDUCATION */
+.edu-bg { background: var(--cream); }
+.edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+.edu-cards { display: flex; flex-direction: column; gap: 3px; }
+.edu-card {
+  background: var(--white); padding: 36px 40px;
+  border-left: 4px solid var(--red);
+  transition: border-color 0.2s, transform 0.2s;
+}
+.edu-card:hover { border-left-color: var(--navy); transform: translateX(4px); }
+.edu-card.gold-border { border-left-color: var(--gold); }
+.edu-card.gold-border:hover { border-left-color: var(--navy); }
+.edu-school { font-family: 'Instrument Serif', serif; font-size: 22px; color: var(--ink); }
+.edu-sub { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1px; color: var(--smoke); margin-top: 5px; }
+.edu-degree { font-size: 14px; color: var(--smoke); margin-top: 10px; line-height: 1.65; }
+.edu-badge {
+  display: inline-block; margin-top: 16px;
+  font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2px;
+  text-transform: uppercase; padding: 5px 14px;
+  background: var(--navy); color: white;
+}
+.edu-badge.gold { background: var(--gold); color: var(--ink); }
+.edu-side { padding-top: 4px; }
+.edu-side-title { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: var(--ink); margin-bottom: 20px; line-height: 1.05; }
+.edu-side-title span { color: var(--red); }
+.edu-side p { font-size: 15px; line-height: 1.8; color: var(--smoke); font-weight: 300; margin-bottom: 16px; }
+.edu-side-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+
+/* SKILLS */
+.skills-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
+.skill-card {
+  background: var(--paper); padding: 40px 36px;
+  position: relative; overflow: hidden;
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.5s, transform 0.5s, background 0.25s;
+}
+.skill-card.visible { opacity: 1; transform: translateY(0); }
+.skill-card:hover { background: var(--navy); }
+.skill-card:hover .skill-name { color: white; }
+.skill-card:hover .skill-items { color: rgba(255,255,255,0.6); }
+.skill-card:hover .skill-cat { color: var(--gold); }
+.skill-cat {
+  font-family: 'DM Mono', monospace; font-size: 9px;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--red); margin-bottom: 14px; transition: color 0.25s;
+}
+.skill-name {
+  font-family: 'Bebas Neue', sans-serif; font-size: 24px;
+  letter-spacing: 1px; color: var(--ink); margin-bottom: 16px;
+  transition: color 0.25s;
+}
+.skill-items { font-size: 13px; line-height: 2.1; color: var(--smoke); transition: color 0.25s; }
+.skill-card::after {
+  content: ''; position: absolute; bottom: 0; left: 0;
+  width: 0; height: 3px; background: var(--red);
+  transition: width 0.35s ease;
+}
+.skill-card:hover::after { width: 100%; }
+
+/* PROJECTS */
+.projects-bg { background: var(--cream); }
+.projects-list { display: flex; flex-direction: column; gap: 3px; }
+.project-card {
+  background: var(--white);
+  display: grid; grid-template-columns: 80px 1fr auto;
+  align-items: center; gap: 40px; padding: 48px 52px;
+  position: relative; overflow: hidden;
+  opacity: 0; transform: translateX(-30px);
+  transition: opacity 0.6s, transform 0.6s, background 0.25s;
+}
+.project-card.visible { opacity: 1; transform: translateX(0); }
+.project-card:hover { background: var(--navy); }
+.project-card:hover .proj-num { color: rgba(255,255,255,0.07); }
+.project-card:hover .proj-title { color: white; }
+.project-card:hover .proj-desc { color: rgba(255,255,255,0.55); }
+.project-card:hover .proj-sector { color: var(--gold); }
+.project-card:hover .proj-tags .tag { border-color: rgba(255,255,255,0.18); color: rgba(255,255,255,0.5); }
+.project-card:hover .proj-arrow { color: var(--gold); transform: translate(4px,-4px); }
+.project-card:hover .metric-val { color: var(--gold); }
+.project-card:hover .metric-label { color: rgba(255,255,255,0.4); }
+.project-card::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 0; background: var(--red); transition: width 0.3s ease;
+}
+.project-card:hover::before { width: 4px; }
+.proj-num { font-family: 'Bebas Neue', sans-serif; font-size: 56px; color: rgba(0,0,0,0.07); line-height: 1; transition: color 0.25s; user-select: none; }
+.proj-sector { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--red); margin-bottom: 10px; transition: color 0.25s; }
+.proj-title { font-family: 'Instrument Serif', serif; font-size: 28px; color: var(--ink); margin-bottom: 14px; line-height: 1.2; transition: color 0.25s; }
+.proj-desc { font-size: 14px; line-height: 1.8; color: var(--smoke); max-width: 680px; transition: color 0.25s; }
+.proj-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+.proj-metrics { display: flex; flex-direction: column; gap: 18px; align-items: flex-end; min-width: 140px; }
+.metric { text-align: right; }
+.metric-val { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--red); line-height: 1; transition: color 0.25s; }
+.metric-label { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--smoke); margin-top: 2px; transition: color 0.25s; }
+.proj-arrow { font-size: 24px; color: rgba(0,0,0,0.14); transition: color 0.25s, transform 0.25s; margin-left: 24px; }
+
+/* INSIGHTS */
+.insights-bg { background: var(--navy); }
+.insights-bg .section-title { color: white; }
+.insights-bg .section-num { color: var(--gold); }
+.insights-bg .section-line { background: linear-gradient(to right,rgba(255,255,255,0.15),transparent); }
+.insights-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
+.insight-card {
+  background: rgba(255,255,255,0.04); padding: 36px 32px;
+  border: 1px solid rgba(255,255,255,0.06);
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.5s, transform 0.5s, background 0.25s, border-color 0.25s;
+}
+.insight-card.visible { opacity: 1; transform: translateY(0); }
+.insight-card:hover { background: rgba(255,255,255,0.08); border-color: var(--gold); transform: translateY(-4px); }
+.insight-project { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--red); margin-bottom: 16px; }
+.insight-text { font-family: 'Instrument Serif', serif; font-size: 16px; line-height: 1.7; color: rgba(255,255,255,0.82); font-style: italic; }
+.insight-stat { font-family: 'Bebas Neue', sans-serif; font-size: 38px; color: var(--gold); margin-top: 20px; line-height: 1; }
+.insight-stat-label { font-size: 10px; color: rgba(255,255,255,0.35); letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; }
+
+/* CONTACT */
+.contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.contact-big { font-family: 'Bebas Neue', sans-serif; font-size: clamp(48px,7vw,96px); line-height: 0.95; letter-spacing: -1px; color: var(--ink); }
+.contact-big span { color: var(--red); display: block; }
+.contact-details { display: flex; flex-direction: column; gap: 24px; }
+.contact-item { display: flex; flex-direction: column; gap: 4px; padding-bottom: 24px; border-bottom: 1px solid rgba(0,0,0,0.08); }
+.contact-item:last-child { border-bottom: none; }
+.contact-item-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--smoke); }
+.contact-item-val { font-size: 16px; font-weight: 500; color: var(--ink); text-decoration: none; transition: color 0.2s; }
+.contact-item-val:hover { color: var(--red); }
+
+/* FOOTER */
+footer { background: var(--ink); padding: 32px 60px; display: flex; align-items: center; justify-content: space-between; }
+.footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 3px; color: white; }
+.footer-logo span { color: var(--red); }
+.footer-copy { font-family: 'DM Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.3); letter-spacing: 1px; }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+
+@media (max-width: 1024px) {
+  nav { padding: 16px 30px; }
+  .hero, section { padding-left: 30px; padding-right: 30px; }
+  .stats-strip { padding: 32px 30px; grid-template-columns: repeat(2,1fr); gap: 24px; }
+  .about-grid, .contact-inner, .edu-grid { grid-template-columns: 1fr; gap: 40px; }
+  .skills-grid { grid-template-columns: repeat(2,1fr); }
+  .insights-grid { grid-template-columns: repeat(2,1fr); }
+  .project-card { grid-template-columns: 60px 1fr; gap: 20px; padding: 32px 28px; }
+  .proj-metrics, .proj-arrow { display: none; }
+  .scroll-hint { display: none; }
+}
+@media (max-width: 640px) {
+  .skills-grid, .insights-grid { grid-template-columns: 1fr; }
+  .nav-links, .nav-badge { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">SMANIKANTA<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#insights">Insights</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <span class="nav-badge">DVA · NST · 2026</span>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg-text">DATA</div>
+  <div class="hero-tag">— Data Visualization &amp; Analytics Portfolio</div>
+  <h1 class="hero-name">
+    ManiKanta
+    <span class="line2">Siraparapu</span>
+  </h1>
+  <p class="hero-desc">
+    Focused on transforming structured datasets into <strong>clear, decision-driven insights</strong> through interactive dashboards and business storytelling. Experienced in Tableau dashboard design, KPI interpretation, and presenting analytical findings in a way stakeholders can act on.
+  </p>
+  <div class="hero-cta-row">
+    <a href="#projects" class="btn-primary">View Projects</a>
+    <a href="#contact" class="btn-outline">Get In Touch</a>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="stat-item">
+    <div class="stat-num">2</div>
+    <div class="stat-label">Analytics Projects</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">111K+</div>
+    <div class="stat-label">Records Analyzed</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">4</div>
+    <div class="stat-label">Tableau Dashboards</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">2</div>
+    <div class="stat-label">Domains Covered</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2 class="section-title">About Me</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>
+        I'm a B.Tech Artificial Intelligence student at Newton School of Technology, specializing in <strong>Data Visualization &amp; Analytics</strong>. My primary focus is on converting data into meaningful business insights using Tableau and structured analysis.
+      </p>
+      <p>
+        In my academic projects, I worked on <strong>dashboard development, KPI interpretation, and presentation of insights</strong>, ensuring that complex datasets are simplified into actionable outcomes.
+      </p>
+      <p>
+        I have also contributed to <strong>data cleaning and preprocessing workflows</strong>, building a strong foundation in preparing real-world datasets for analysis.
+      </p>
+      <div class="about-tags">
+        <span class="tag">Python</span>
+        <span class="tag">SQL</span>
+        <span class="tag">Pandas</span>
+        <span class="tag">NumPy</span>
+        <span class="tag">Data Cleaning</span>
+        <span class="tag">EDA</span>
+        <span class="tag">Tableau</span>
+        <span class="tag">KPI Design</span>
+        <span class="tag">Dashboarding</span>
+      </div>
+    </div>
+    <div class="quick-facts">
+      <div class="qf-label">Quick Facts</div>
+      <div class="qf-row">
+        <div class="qf-key">Focus</div>
+        <div class="qf-val">Dashboard Development &amp; Data Visualization</div>
+      </div>
+      <div class="qf-row">
+        <div class="qf-key">Tools</div>
+        <div class="qf-val">Tableau, Python</div>
+      </div>
+      <div class="qf-row">
+        <div class="qf-key">Strength</div>
+        <div class="qf-val">Turning data into clear insights</div>
+      </div>
+      <div class="qf-row">
+        <div class="qf-key">Email</div>
+        <div class="qf-val gold">siraparapuabhinay21@gmail.com</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" class="edu-bg">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Education</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="edu-grid">
+    <div class="edu-cards">
+      <div class="edu-card gold-border">
+        <div class="edu-school">Newton School of Technology</div>
+        <div class="edu-sub">Rishihood University · Sonipat, Haryana</div>
+        <div class="edu-degree">
+          B.Tech in Artificial Intelligence<br>
+          Currently pursuing — strong foundation in statistics, Python, and data engineering
+        </div>
+        <div class="edu-badge gold">2024 – 2028 · Pursuing</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-school" style="font-size:19px;">Aakash Institute</div>
+        <div class="edu-sub">Visakhapatnam, Andhra Pradesh</div>
+        <div class="edu-degree">
+          State Board (11th &amp; 12th)<br>
+          Percentage: 59%<br>
+          Key Subjects: Physics · Chemistry · Mathematics · English
+        </div>
+        <div class="edu-badge">Completed · 2023</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-school" style="font-size:19px;">Timpany Secondary School</div>
+        <div class="edu-sub">Visakhapatnam, Andhra Pradesh</div>
+        <div class="edu-degree">
+          CBSE Board (10th)<br>
+          Percentage: 64%<br>
+        </div>
+        <div class="edu-badge">Completed</div>
+      </div>
+    </div>
+    <div class="edu-side">
+      <div class="edu-side-title">Learning<br><span>by Doing.</span></div>
+      <p>Every course at NST is built around real-world problem solving. The DVA program goes beyond theory — teams work with raw, messy datasets and deliver complete analytics pipelines under industry-style deadlines.</p>
+      <p>Capstone 2 is a 2-week sprint that mirrors what an analytics consultant does on the job — source data, clean it, analyze it, visualize it, and present recommendations to a decision-maker with quantified business impact.</p>
+      <div class="edu-side-tags">
+        <span class="tag">Python</span>
+        <span class="tag">Tableau Public</span>
+        <span class="tag">GitHub</span>
+        <span class="tag">Jupyter Notebook</span>
+        <span class="tag">Statistical Analysis</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Technical Skills</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-cat">Analysis &amp; Processing</div>
+      <div class="skill-name">Data &amp; Python</div>
+      <div class="skill-items">Python · SQL · Pandas · NumPy · Data Cleaning · EDA</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-cat">Visualization</div>
+      <div class="skill-name">Tableau &amp; Dashboards</div>
+      <div class="skill-items">Tableau · Dashboard Development · Data Visualization</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-cat">Strategy</div>
+      <div class="skill-name">Business Analytics</div>
+      <div class="skill-items">KPI Design · Business Insights · Structured Analysis</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="projects-bg">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2 class="section-title">Projects</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="projects-list">
+    <div class="project-card">
+      <div class="proj-num">01</div>
+      <div class="proj-content">
+        <div class="proj-sector">Food &amp; Delivery Analytics · Tableau · 2026</div>
+        <div class="proj-title">Zomato Metro Analytics</div>
+        <div class="proj-desc">
+          Worked on analyzing restaurant data across 13 metro cities to understand customer behavior and rating patterns. Contributed to data preparation and developed interactive Tableau dashboards highlighting key KPIs such as average ratings, pricing trends, and city-level performance. Focused on visual storytelling by designing dashboards that clearly communicate insights and support decision-making.
+        </div>
+        <div class="proj-tags">
+          <span class="tag">Tableau</span>
+          <span class="tag">Dashboard Design</span>
+          <span class="tag">KPI Analysis</span>
+          <span class="tag">EDA</span>
+          <span class="tag">Data Cleaning</span>
+        </div>
+      </div>
+      <div class="proj-metrics">
+        <div class="metric"><div class="metric-val">101K+</div><div class="metric-label">Records</div></div>
+        <div class="metric"><div class="metric-val">13</div><div class="metric-label">Metro Cities</div></div>
+        <div class="metric"><div class="metric-val">4</div><div class="metric-label">Dashboards</div></div>
+      </div>
+      <div class="proj-arrow">&#8599;</div>
+    </div>
+    <div class="project-card">
+      <div class="proj-num">02</div>
+      <div class="proj-content">
+        <div class="proj-sector">Financial Services · Risk Analytics · 2026</div>
+        <div class="proj-title">Credit Default Risk Analysis</div>
+        <div class="proj-desc">
+          Contributed to the analysis of a financial dataset to understand default risk patterns. Involved in data cleaning, KPI identification, and supporting the presentation of insights. Helped structure findings into a clear narrative, focusing on communicating results effectively for business understanding.
+        </div>
+        <div class="proj-tags">
+          <span class="tag">Data Cleaning</span>
+          <span class="tag">EDA</span>
+          <span class="tag">KPI Analysis</span>
+          <span class="tag">Business Insights</span>
+        </div>
+      </div>
+      <div class="proj-metrics">
+        <div class="metric"><div class="metric-val">10K+</div><div class="metric-label">Records</div></div>
+        <div class="metric"><div class="metric-val">23.6%</div><div class="metric-label">Default Rate</div></div>
+      </div>
+      <div class="proj-arrow">&#8599;</div>
+    </div>
+  </div>
+</section>
+
+<!-- INSIGHTS -->
+<section id="insights" class="insights-bg">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <h2 class="section-title">Key Insights Delivered</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="insights-grid">
+    <div class="insight-card">
+      <div class="insight-project">Zomato Metro Analysis</div>
+      <div class="insight-text">Delivery ratings consistently exceed dining ratings across all cities, indicating stronger satisfaction in delivery experience.</div>
+      <div class="insight-stat">Stronger</div>
+      <div class="insight-stat-label">Delivery Satisfaction</div>
+    </div>
+    <div class="insight-card">
+      <div class="insight-project">Zomato Metro Analysis</div>
+      <div class="insight-text">Mumbai shows higher average pricing compared to other cities, suggesting a premium market segment.</div>
+      <div class="insight-stat">Premium</div>
+      <div class="insight-stat-label">Market Segment</div>
+    </div>
+    <div class="insight-card">
+      <div class="insight-project">Zomato Metro Analysis</div>
+      <div class="insight-text">Customers with lower dining ratings but stable delivery ratings indicate service-based differentiation.</div>
+      <div class="insight-stat">Stable</div>
+      <div class="insight-stat-label">Delivery Ratings</div>
+    </div>
+    <div class="insight-card">
+      <div class="insight-project">Zomato Metro Analysis</div>
+      <div class="insight-text">City-level variation highlights uneven customer preferences, creating targeted market opportunities.</div>
+      <div class="insight-stat">Targeted</div>
+      <div class="insight-stat-label">Opportunities</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <h2 class="section-title">Contact</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="contact-inner">
+    <div class="contact-big">
+      Let's<br>
+      <span>Talk</span>
+      Data.
+    </div>
+    <div class="contact-details">
+      <div class="contact-item">
+        <span class="contact-item-label">Full Name (Academic)</span>
+        <span class="contact-item-val">Shiva Sankar ManiKanta Siraparapu</span>
+      </div>
+      <div class="contact-item">
+        <span class="contact-item-label">Email</span>
+        <a href="mailto:siraparapuabhinay21@gmail.com" class="contact-item-val">siraparapuabhinay21@gmail.com</a>
+      </div>
+      <div class="contact-item">
+        <span class="contact-item-label">Institution</span>
+        <span class="contact-item-val">Newton School of Technology, Rishihood University</span>
+      </div>
+      <div class="contact-item">
+        <span class="contact-item-label">Program</span>
+        <span class="contact-item-val">B.Tech Artificial Intelligence · 2024 – 2028</span>
+      </div>
+      <div class="contact-item">
+        <span class="contact-item-label">Specialization</span>
+        <span class="contact-item-val">Data Visualization &amp; Analytics</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">SMKANTA<span>.</span></div>
+  <div class="footer-copy">© 2026 · DVA Portfolio · Newton School of Technology</div>
+</footer>
+
+<script>
+const cursor = document.getElementById('cursor');
+const ring   = document.getElementById('cursorRing');
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top  = e.clientY + 'px';
+  setTimeout(() => {
+    ring.style.left = e.clientX + 'px';
+    ring.style.top  = e.clientY + 'px';
+  }, 80);
+});
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 90);
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.stat-item, .skill-card, .project-card, .insight-card').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
