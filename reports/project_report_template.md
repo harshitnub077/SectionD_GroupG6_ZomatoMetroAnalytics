@@ -5,10 +5,9 @@
 **Group:** G6  
 **Members:**  
 - Piyush Raj (Lead Data Analyst)  
-- Shiva (Full Stack Developer)  
+- Shiva Sankar Manikanta (Full Stack Developer & Visualization Specialist)  
 - Harshit (Data Engineer)  
 - Pratyush Parida (Visualization Specialist)  
-- Manikanta Siraparapu (Data Analyst & Visualization Specialist)  
 
 ---
 
@@ -104,9 +103,14 @@
 
 ---
 
-## 8. Exploratory Analysis
+### 8.1 Rating Distributions
+The analysis reveals that delivery ratings are consistently higher and more skewed towards the positive end (3.8–4.5) compared to dining ratings. This suggests a systemic preference or higher perceived quality for delivery services across the metropolitan dataset.
 
-*To be updated after EDA charts are finalized*
+### 8.2 KPI-1: Dining vs Delivery Rating Gap
+Pune (-0.355) and Bangalore (-0.279) exhibit the largest negative gaps, indicating that delivery satisfaction significantly outperforms the dine-in experience in these tech-heavy hubs. Conversely, Lucknow (-0.033) shows the highest parity.
+
+### 8.3 KPI-2: Cuisine Engagement
+"Tea" and "Awadhi" cuisines dominate customer engagement, with average votes per item exceeding all other categories by a significant margin. This highlights a strong regional and lifestyle-driven demand for these specific categories.
 
 ---
 
@@ -129,9 +133,11 @@
 
 ---
 
-## 10. Dashboard Walkthrough
+Our Tableau dashboard provides a multi-layered view of the metropolitan food landscape:
 
-*To be filled after Tableau dashboard is complete*
+- **Dashboard 1 — Metropolitan Footprint:** Visualizes the volume of restaurant entries across 13 cities, highlighting Hyderabad and Jaipur as major data hubs.
+- **Dashboard 2 — Rating Parity & Gaps:** Maps the dining-delivery rating differential, clearly surfacing the priority cities (Pune, Bangalore) for operational intervention.
+- **Dashboard 3 — Engagement & Trends:** Analyzes how the "BESTSELLER" tag and cuisine types influence customer voting behavior and pricing strategies.
 
 ---
 
@@ -183,7 +189,6 @@
 | Member | Role | Contribution |
 |--------|------|--------------|
 | Piyush Raj | Lead Data Analyst | ETL Pipeline design, imputation logic, statistical analysis, and report writing. |
-| Shiva | Full Stack Developer | Portfolio development, UI/UX design, and project documentation management. |
+| Shiva Sankar Manikanta | Full Stack Developer & Visualization Specialist | Portfolio development, UI/UX design, interactive Tableau dashboards, and data preparation. |
 | Harshit | Data Engineer | Git version control, conflict resolution, and deployment orchestration. |
 | Pratyush Parida | Visualization Specialist | Tableau dashboard design, dataset finding & cleaning, and report writing. |
-| Manikanta Siraparapu | Data Analyst & Visualization Specialist | Developed interactive Tableau dashboards, analyzed restaurant data across 13 metro cities, and contributed to data preparation. |
